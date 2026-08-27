@@ -468,6 +468,43 @@ git push origin feature/your-feature
 
 7. Open a pull request.
 
+
+## Evaluation
+
+RecoverIQ is evaluated on synthetic payment events and compared with a simple baseline:
+
+> Baseline: retry every eligible failed payment once after 24 hours.
+
+### Dataset
+
+- 500 synthetic failed payments.
+- Failure reasons: bank timeout, insufficient funds, expired card, authentication failure, unknown.
+- Varying attempt numbers, consent status, and customer languages.
+- Ground-truth recoverability labels.
+
+### Metrics
+
+| Metric | Baseline | RecoverIQ |
+|---|---|---|
+| Recovery rate | [X] | [Y] |
+| Amount recovered | ₹[X] | ₹[Y] |
+| Unnecessary actions | [X] | [Y] |
+| Manual-review rate | — | [X] |
+
+Replace `[X]` and `[Y]` with the actual numbers from `data/evaluation_metrics.csv`.
+
+### Run evaluation
+
+```bash
+python evaluate.py
+```
+
+This generates:
+
+- `data/evaluation_payments.csv`
+- `data/evaluation_actions.csv`
+- `data/evaluation_metrics.csv`
+
 ## License
 
 This project is available under the MIT License.
